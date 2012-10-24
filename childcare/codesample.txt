@@ -1,0 +1,126 @@
+//PHP TEMPLATE
+<html>
+<head>
+<style> @import url('childcare.css');</style>
+</head>
+<body>
+<img src = 'up.png' id = 'imageUp' class = 'addBehavior'/>
+<img src = 'down.png' id = 'imageDown' class = 'addBehavior'/>
+<?php
+
+$con = mysql_connect('localhost', 'childcare', 'password') or die(require_once('createdb.php'));
+mysql_select_db('childcaredb', $con) or die('select table error');
+$result = mysql_query("SELECT * FROM `childcareable` WHERE 2;") or die('error');
+echo '<ul id = "ulist">';
+while($row = mysql_fetch_array($result)){
+	echo '<li>'.$row['employee_first_name']. " ". $row['employee_last_name'].'</li>';
+	echo "<br />";
+}
+echo '</ul>';
+mysql_close($con);
+
+  ?>
+  <script type = 'text/javascript' src = 'childcare.js'></script>
+  </body>
+  </html>
+  //DATABASE CREATION SCRIPT FOR REQUIRE_ONCE
+  <?php 
+$con=mysql_connect('localhost','childcare','password');
+if (!$con)
+{
+die('could not connect' . mysql_error());
+};
+
+
+mysql_select_db('childcaredb', $con);
+$sql = 'CREATE TABLE childcareable
+
+(empID int NOT NULL AUTO_INCREMENT, PRIMARY KEY(empID),employee_last_name VARCHAR(100),employee_first_name VARCHAR(100))
+';
+
+mysql_query($sql,$con);
+
+
+mysql_query("INSERT INTO childcareable VALUES(0,'Doe','John')" or die('table error' . mysql_error()));
+mysql_query("INSERT INTO childcareable VALUES(1,'Smill', 'Bill')");
+mysql_query("INSERT INTO childcareable VALUES(2,'McDonald', 'Trisha')");
+mysql_query("INSERT INTO childcareable VALUES(3,'Wheatfield', 'Chris')");
+mysql_query("INSERT INTO childcareable VALUES(4,'Sumner','Barry')");
+mysql_query("INSERT INTO childcareable VALUES(5,'Finkle','Paige')");
+mysql_query("INSERT INTO childcareable VALUES(6,'Waldorf','Jerry')");
+mysql_query("INSERT INTO childcareable VALUES(7,'Gilroy','Pete')");
+mysql_query("INSERT INTO childcareable Values(8,'Humphrey','Larry')");
+
+mysql_close($con);
+?>
+//JAVASCRIPT TO REORDER ELEMENTS
+var list = document.getElementsByTagName('li');
+var arr = new Array();
+var ascendArr = new Array();
+var descendArr = new Array();
+
+function descend(descendArr){  
+    var ulist =document.getElementById('ulist');
+    var descendList = '';
+    //remove old, unsorted list
+	while (ulist.firstChild){
+        ulist.removeChild;
+    }
+   //replace with new, sorted list
+    for (var x = 0; x < descendArr.length; x++ ) {
+        descendList+= "<li>"  + descendArr[x] + "</li>";
+    }
+    document.getElementById("ulist").innerHTML = descendList;
+}
+
+function ascend(ascendArr){
+    //remove old, unsorted list elements
+	var ulist =document.getElementsByTagName('ul');
+    var ascendList = '';
+    while (ulist.firstChild){
+        ulist.removeChild;
+    }
+	//replace with new, sorted list
+    for (var x = 0; x < ascendArr.length; x++ ) {
+        ascendList+= "<li>"  + ascendArr[x] + "</li>";
+    }
+    document.getElementById("ulist").innerHTML = ascendList;
+}
+//reads in HTML list, sorts it into two arrays, ascendArr and descendArr, sends them to functions which write them to the page
+
+for (var x=0;x<list.length;x++){
+var spc = list[x].innerHTML.indexOf(' ');
+arr.push(list[x].innerHTML.slice(spc+1)+ ' ' + list[x].innerHTML.slice(0,spc));
+}
+var changeArr = arr.sort();
+for (var x =0;x<arr.length;x++){
+var changeSpc = changeArr[x].indexOf(' ');
+changeArr[x]=arr[x].slice(changeSpc+1)+ ' ' + arr[x].slice(0,changeSpc);
+
+ascendArr.push(changeArr[x]);
+}
+ //gets the descending list together
+swapArr=arr.reverse();
+for (var x =0;x<swapArr.length;x++){
+var changeSpc = swapArr[x].indexOf(' ');
+swapArr[x]=swapArr[x].slice(changeSpc+1)+ ' ' + swapArr[x].slice(0,changeSpc);
+
+descendArr.push(swapArr[x]);
+}
+//add event handlers, call principle functions ascend() and descend() sends the sorted arrays to them.
+var img = document.getElementsByTagName('img');
+img[0].addEventListener('click', function(){descend(descendArr)},false);
+img[1].addEventListener('click', function(){ascend(ascendArr)},false);
+//CSS INCLUDE
+.addBehavior{
+  width:25px;
+  display:block;
+  position:relative;
+  top:50px;
+  
+}
+ul {
+  list-style:none;
+  position:absolute;
+  
+}

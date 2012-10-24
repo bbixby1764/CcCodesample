@@ -1,0 +1,9 @@
+$result = mysql_query('SHOW TABLES;');
+
+if ($result ===false){ die('Error in Listing Tables'.mysql_error());}
+echo '<ul>';
+while ($row = mysql_fetch_row($result)){
+  echo '<li>'.$row.'</li>';
+  echo '</ul>';}
+  ?>
+  <script type = 'text/javascript' src = 'childcare.js'></script>

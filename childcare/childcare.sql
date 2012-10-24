@@ -1,0 +1,12 @@
+CREATE childcaredb;
+SELECT childcaredb;
+CREATE Table Employees(empID INTEGER PRIMARY KEY, employee_last_name VARCHAR(100),employee_first_name VARCHAR(100));
+INSERT INTO Employees VALUES(1,'Doe','John');
+INSERT INTO Employees VALUES(2,'Smill', 'Bill');
+INSERT INTO Employees VALUES(3,'McDonald', 'Trisha');
+INSERT INTO Employees VALUES(4,'Wheatfield', 'Chris');
+INSERT INTO Employees VALUES(5,'Sumner','Barry');
+INSERT INTO Employees VALUES(7,'Finkle','Paige');
+INSERT INTO Employees VALUES(8,'Waldorf','Jerry');
+INSERT INTO Employees VALUES(9,'Gilroy','Pete');
+INSERT INTO Employees Values(10,'Humphrey','Larry');
